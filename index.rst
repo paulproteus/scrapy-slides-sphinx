@@ -12,18 +12,11 @@ asheesh@asheesh.org
 Part 0. My history with scraping
 ======================
 
-* 2001: Discovered Python
-
 * 2004: Taught 3-week mini-class on mechanize + BeautifulSoup
-
-* 2005: ~/bin/en2fr
-
-Part 0. My history with scraping
-======================
 
 * 2009: "Volunteer opportunity finder" within OpenHatch
 
-* 2011: vidscraper + multiprocessing
+* 2011: vidscraper. multiprocessing? gevent?
 
 * 2012: oh-bugimporters rewrite w/ Scrapy
 
@@ -367,7 +360,6 @@ Gives
     time()-engine.start_time              : 21.3188259602
     engine.is_idle()                      : False
     …
-    >>>
 
 
 Awesome features...
@@ -402,6 +394,56 @@ Part IV. Async
 .. figure:: /_static/asink.jpg
    :class: fill
 
+If you're not done, say so
+==========================
+
+.. testcode::
+
+   def parse(response):
+       # do some work...
+
+If you're not done, say so
+==========================
+
+.. testcode::
+
+   def parse(response):
+       # do some work...
+       req = request(new_url)
+       yield req
+
+If you're not done, say so
+==========================
+
+.. testcode::
+
+   def parse(response):
+       # do some work...
+       req = request(new_url,
+                     callback=next_page_handler)
+       yield req
+
+   def next_page_handler(response):
+       # do some work...
+       yield Item()
+
+If you're not done, say so
+==========================
+
+.. testcode::
+
+   def parse(response):
+       # do some work...
+       req = Request(new_url,
+                     callback=next_page_handler)
+       req.meta['data'] = 'to keep around'
+       yield req
+
+   def next_page_handler(response):
+       data = response.meta['data'] # pull data out
+       # do some work...
+       yield Item()
+
 Performance
 ===========
 
@@ -429,38 +471,6 @@ Performance
 * After Scrapy:
  * N=200 simultaneous requests
  * 1 hour 10 min
-
-If you're not done, say so
-==========================
-
-.. testcode::
-
-   def parse(response):
-       # do some work...
-       req = request(new_url,
-                     callback=next_page_handler)
-       yield Request
-
-   def next_page_handler(response):
-       # do some work...
-       yield Item()
-
-If you're not done, say so
-==========================
-
-.. testcode::
-
-   def parse(response):
-       # do some work...
-       req = Request(new_url,
-                     callback=next_page_handler)
-       req.meta['data'] = 'to keep around'
-       yield req
-
-   def next_page_handler(response):
-       data = response.meta['data'] # pull data out
-       # do some work...
-       yield Item()
 
 Part V. Testing
 ===============
@@ -521,6 +531,23 @@ More testing
 
 Part VI. Wacky tricks
 =====================
+
+A setting for everything
+========================
+
+* settings.USER_AGENT
+
+* settings.CONCURRENT_REQUESTS_PER_DOMAIN (= e.g. 1)
+
+* settings.CONCURRENT_REQUEST (= e.g. 800)
+
+* settings.RETRY_ENABLED (= True by default)
+
+* settings.RETRY_TIMES
+
+* settings.RETRY_HTTP_CODES
+
+* Great intro-to-scraping docs
 
 JavaScript
 ==========

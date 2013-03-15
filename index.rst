@@ -1,42 +1,44 @@
 .. slideconf::
    :theme: single-level
 
-==========================
- Understanding Middleware
-==========================
+=======================
+Scrapy: it GETs the Web
+=======================
 
+Asheesh Laroia
 
-Overview of Middleware
+asheesh@asheesh.org
+
+Part 0. My history with scraping
 ======================
 
-* Lightweight "plug-ins" for Django
-* Allows modifying the Request or Response, or mutating the View
-  parameters
-* Defined as a sequence (tuple) of classes in ``settings``
+* 2001: Discovered Python
 
-.. testcode::
+* 2004: Taught 3-week mini-class on mechanize + BeautifulSoup
 
-  MIDDLEWARE_CLASSES = (
-      'django.middleware.common.CommonMiddleware',
-      'django.contrib.sessions.middleware.SessionMiddleware',
-      'django.middleware.csrf.CsrfViewMiddleware',
-      'django.contrib.auth.middleware.AuthenticationMiddleware',
-      'django.contrib.messages.middleware.MessageMiddleware',
-  )
+* 2005: ~/bin/en2fr
 
-Middleware Hooks
+======================
+Part 1. Scraping nowadays, without Scrapy
+======================
+
+
+
+Scraping is easy: Downloading
+=============================
+
+* **Download** with urllib2, or requests, or mechanize, or ...
+
+* **Parse** pages with lxml/BeautifulSoup
+
+* **Examine** with browser inspectors
+
+* **Select** with XPath or CSS selectors
+
+Part I
 ================
 
-* Middleware classes have a few hooks:
-
-  - ``request``
-  - ``response``
-  - ``view``
-  - ``template_response``
-  - ``exception``
-
-* Individual middleware may implement some or all
-
+Scraping nowadays, without Scrapy
 Typical Uses
 ============
 

@@ -18,6 +18,15 @@ Part 0. My history with scraping
 
 * 2005: ~/bin/en2fr
 
+Part 0. My history with scraping
+======================
+
+* 2009: "Volunteer opportunity finder" within OpenHatch
+
+* 2011: vidscraper + multiprocessing
+
+* 2012: oh-bugimporters rewrite w/ Scrapy
+
 Part I. Scraping is easy
 ========================
 
@@ -47,6 +56,23 @@ Part II. Rewriting some non-scrapy code
 ================
 
 Task: Get a list of speakers
+
+.. testcode::
+
+   SCHED_PAGE='https://us.pycon.org/2013/schedule/'
+
+   import requests
+   import lxml.html
+
+   data = requests.get(SCHED_PAGE)
+   parsed = lxml.html.fromstring(data.content)
+   print [x.text_content()
+          for x in parsed.cssselect('span.speaker')]
+
+Part II. Rewriting some non-scrapy code
+================
+
+Task: **Get a list of speakers and talk titles**
 
 .. testcode::
 
@@ -248,7 +274,7 @@ How you run it
 ::
 
     $ scrapy runspider your_spider.py -L ERROR
-    {}
+    $
 
 Customizing output
 ==================
@@ -256,7 +282,7 @@ Customizing output
 ::
 
     $ scrapy runspider your_spider.py -s FEED_URI=myfile.out
-
+    $
 ...
 ===
 
@@ -325,7 +351,27 @@ Awesome features
    :class: fill
 
 Awesome features...
-================
+===================
+
+    telnet localhost 6023
+
+Awesome features...
+===================
+
+    telnet localhost 6023
+
+Gives
+
+    >>> est()
+    Execution engine status
+    time()-engine.start_time              : 21.3188259602
+    engine.is_idle()                      : False
+    …
+    >>>
+
+
+Awesome features...
+===================
 
     telnet localhost 6023
 
@@ -354,12 +400,6 @@ Part IV. Async
 ==============
 
 .. figure:: /_static/asink.jpg
-   :class: fill
-
-...
-===
-
-.. figure:: /_static/scrapy-diagram-2.png
    :class: fill
 
 Performance

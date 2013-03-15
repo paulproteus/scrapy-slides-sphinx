@@ -10,7 +10,7 @@ Asheesh Laroia
 asheesh@asheesh.org
 
 Part 0. My history with scraping
-======================
+================================
 
 * 2004: Taught 3-week mini-class on mechanize + BeautifulSoup
 

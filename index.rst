@@ -362,62 +362,242 @@ Part IV. Async
 .. figure:: /_static/scrapy-diagram-2.png
    :class: fill
 
+Performance
+===========
 
-Scraping nowadays, without Scrapy
-=================================
+* Crawl 500 projects' bug trackers:
+ * 26 hours
 
-* Sessions
-* Authentication
-* CSRF Protection
-* GZipping Content
+Performance
+===========
 
-Middleware Example
-==================
+* Crawl 500 projects' bug trackers:
+ * 26 hours
+
+* Add multiprocessing:
+ * +1-10 MB * N workers
+
+Performance
+===========
+
+* Crawl 500 projects' bug trackers:
+ * 26 hours
+
+* Add multiprocessing:
+ * +1-10 MB * N workers
+
+* After Scrapy:
+ * N=200 simultaneous requests
+ * 1 hour 10 min
+
+If you're not done, say so
+==========================
 
 .. testcode::
 
-   class LocaleMiddleware(object):
+   def parse(response):
+       # do some work...
+       req = request(new_url,
+                     callback=next_page_handler)
+       yield Request
 
-       def process_request(self, request):
+   def next_page_handler(response):
+       # do some work...
+       yield Item()
 
-           if 'locale' in request.cookies:
-               request.locale = request.cookies.locale
-           else:
-               request.locale = None
+If you're not done, say so
+==========================
 
-       def process_response(self, request, response):
+.. testcode::
 
-           if getattr(request, 'locale', False):
-               response.cookies['locale'] = request.locale
+   def parse(response):
+       # do some work...
+       req = Request(new_url,
+                     callback=next_page_handler)
+       req.meta['data'] = 'to keep around'
+       yield req
 
+   def next_page_handler(response):
+       data = response.meta['data'] # pull data out
+       # do some work...
+       yield Item()
 
-Request Middleware
-==================
-
-* On ingress, middleware is executed in order
-* Request middleware returns ``None`` to continue processing
-* Returning an ``HttpResponse`` short circuits additional middleware
-
-Response Middleware
-===================
-
-* On egress, middleware is executed in reverse order
-* Response middleware is executed *even if corresponding request
-  middleware not executed*
-
-Writing Your Own
-================
-
-* Simple Python Classes
-* Can implement all or part of the interface
-* Middleware is long-lived
-* The place for storing request-specific information is cunningly
-  named ``request``
-
-WSGI Middleware
+Part V. Testing
 ===============
 
-* WSGI_ also defines a middleware interface
-* The two have similar functions, but are **not** the same
+.. testcode::
 
-.. _WSGI: http://wsgi.org
+    class PyConSiteSpider(BaseSpider):
+        def parse(self, response):
+	    # ...
+            for speaker in speakers:
+	        # ...
+                yield PyConPreso(
+		        author=author, preso=preso)
+
+Part V. Testing
+===============
+
+.. testcode::
+
+    class PyConSiteSpider(BaseSpider):
+        def parse(self, response):
+	    # ...
+            for speaker in speakers:
+	        # ...
+                yield PyConPreso(
+		        author=author, preso=preso)
+
+test:
+
+.. testcode::
+
+    def test_spider():
+        resp = HtmlResponse(url='', body=open('saved-data.html').read())
+        spidey = PyconSiteSpider()
+        expected = [PyConPreso(author=a, preso=b), ...]
+        items = list(spidey.parse(resp))
+        assert items == expected
+
+More testing
+============
+
+.. testcode::
+
+    def test_spider(self):
+        spidey = PyConSiteSpider()
+        request_iterable = spider.start_requests()
+        url2filename = {'http://example.com/':
+                               'path/to/sample.html'}
+
+	expected = [...]
+
+        ar = autoresponse.Autoresponder(
+	         url2filename=url2filename,
+                 url2errors={})
+        items = ar.respond_recursively(request_iterable)
+
+	self.assertEqual(expected, items)
+
+Part VI. Wacky tricks
+=====================
+
+JavaScript
+==========
+
+.. testcode::
+
+    import spidermonkey
+
+    def parse(self, response):
+       # to get a tag...
+       script_content = doc.xpath('//script')[0].text_content()
+       # to run the JS...
+       r = spidermonkey.Runtime()
+       ctx = r.new_context()
+       n = cx.eval_script("1 + 2") + 3
+       # n == 6
+
+
+JavaScript
+==========
+
+.. testcode::
+
+    import spidermonkey
+
+    def parse(self, response):
+       script_content = doc.xpath('//script')[0].text_content() # get tag
+       r = spidermonkey.Runtime()
+       ctx = r.new_context()
+       n = cx.eval_script(script_content) # execute script
+
+    import selenium
+    class MySpider(BaseSpider):
+        def __init__(self):
+            self.browser = selenium.selenium(...) # configure
+            self.browser.start() # synchronously launch
+
+	def parse(self, response):
+            self.browser.open(response.url) # GET by browser
+	    self.browser.select('//ul') # in-browser XPath
+
+Django
+======
+
+.. testcode::
+
+   from scrapy.contrib.djangoitem import DjangoItem
+
+Django
+======
+
+.. testcode::
+
+   from scrapy.contrib.djangoitem import DjangoItem
+   from myapp.models import Poll
+
+   # in scrapy items.py
+   class PollItem(DjangoItem):
+       django_model = Poll
+
+Django
+======
+
+.. testcode::
+
+   from scrapy.contrib.djangoitem import DjangoItem
+   from myapp.models import Poll
+
+   # in scrapy items.py
+   class PollItem(DjangoItem):
+       django_model = Poll
+
+   # in scrapy pipelines.py
+   class PollPipeline(object):
+       def process_item(self, item, spider):
+           item.save()
+
+Django
+======
+
+.. testcode::
+
+   from scrapy.contrib.djangoitem import DjangoItem
+   from myapp.models import Poll
+
+   # in scrapy items.py
+   class PollItem(DjangoItem):
+       django_model = Poll
+
+   # in scrapy pipelines.py
+   class PollPipeline(object):
+       def process_item(self, item, spider):
+           item.save()
+
+Or just write a Django management command to deal with the JSON.
+
+Best-case integration
+=====================
+
+* Leave your HTTP to Scrapy.
+
+* Impatient? Item Pipeline.
+
+* Patient? Feed Exporter.
+
+Twisted minus Twisted
+=====================
+
+.. figure:: /_static/garfield-minus.png
+   :class: fill
+
+==================================
+Separate requesting and responding
+==================================
+
+.. figure:: /_static/take-away.jpg
+   :class: fill
+
+Asheesh Laroia
+

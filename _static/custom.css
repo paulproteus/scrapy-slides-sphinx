@@ -102,3 +102,8 @@ article#event-creation > h2,
 article#danger h2 {
     display: none;
 }
+
+/* HAX */
+#id11 h2 , #id12 h2{
+    display: none;
+}

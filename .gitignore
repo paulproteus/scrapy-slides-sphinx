@@ -1,0 +1,9 @@
+/_build
+/bin
+/eggs
+/develop-eggs
+/parts
+/.installed.cfg
+/_serekh
+*.pyc
+

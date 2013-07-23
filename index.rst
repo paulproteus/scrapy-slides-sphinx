@@ -671,6 +671,26 @@ Performance
  * N=200 simultaneous requests
  * 1 hour 10 min
 
+====
+Part
+====
+
+Testing
+
+Why testing is normally hard
+============================
+
+First, the obvious -- if you run your tests against the live Internet,
+when a remote site is down, your Jenkins builds fail
+
+Additionally, it's slow to run your test suite
+
+The more tests you have, the more it hurts
+
+https://github.com/pculture/vidscraper/commit/93dc686481342744de3348585b3dd036afe212e8 -- you have to update your sample data when the remote site changes
+
+@mock.patch sucks because if you miss one, it's over
+
 Part V. Testing
 ===============
 
@@ -701,12 +721,56 @@ test:
 
 .. testcode::
 
-    def test_spider():
-        resp = HtmlResponse(url='', body=open('saved-data.html').read())
-        spidey = PyconSiteSpider()
+    >>> spidey = PyConSiteSpider()
+    >>> results = spidey.parse(response)
+
+Part V. Testing
+===============
+
+.. testcode::
+
+    class PyConSiteSpider(BaseSpider):
+        def parse(self, response):
+	    # ...
+            for speaker in speakers:
+	        # ...
+                yield PyConPreso(
+		        author=author, preso=preso)
+
+test:
+
+.. testcode::
+
+    >>> spidey = PyConSiteSpider()
+    >>> canned_response = HtmlResponse(url='', body=open('saved-data.html').read())
+    >>> results = spidey.parse(canned_response)
+    >>> assert list(results) == [PyConPreso(author=a, preso=b), ...]
+
+
+Part V. Testing
+===============
+
+.. testcode::
+
+    class PyConSiteSpider(BaseSpider):
+        def parse(self, response):
+	    # ...
+            for speaker in speakers:
+	        # ...
+                yield PyConPreso(
+		        author=author, preso=preso)
+
+test:
+
+.. testcode::
+
+    def test_spider(self):
         expected = [PyConPreso(author=a, preso=b), ...]
-        items = list(spidey.parse(resp))
-        assert items == expected
+
+        spidey = PyConSiteSpider()
+	canned_response = HtmlResponse(url='', body=open('saved-data.html').read())
+	results = list(spidey.parse(canned_response))
+        self.assertEqual(expected, items)
 
 More testing
 ============
@@ -714,39 +778,70 @@ More testing
 .. testcode::
 
     def test_spider(self):
-        spidey = PyConSiteSpider()
-        request_iterable = spider.start_requests()
         url2filename = {'http://example.com/':
                                'path/to/sample.html'}
 
-	expected = [...]
+	expected_data = [PyConPreso(author=a, preso=b), ...]
+
+
+More testing
+============
+
+.. testcode::
+
+    def test_spider(self):
+        url2filename = {'http://example.com/':
+                               'path/to/sample.html'}
+
+	expected_data = [PyConPreso(author=a, preso=b), ...]
+
+        spidey = PyConSiteSpider()
+        request_iterable = spider.start_requests()
+
+More testing
+============
+
+.. testcode::
+
+    def test_spider(self):
+        url2filename = {'http://example.com/':
+                               'path/to/sample.html'}
+
+	expected_data = [PyConPreso(author=a, preso=b), ...]
+
+        spidey = PyConSiteSpider()
+        request_iterable = spider.start_requests()
 
         ar = autoresponse.Autoresponder(
 	         url2filename=url2filename,
                  url2errors={})
+More testing
+============
+
+.. testcode::
+
+    def test_spider(self):
+        url2filename = {'http://example.com/':
+                               'path/to/sample.html'}
+
+	expected_data = [PyConPreso(author=a, preso=b), ...]
+
+        spidey = PyConSiteSpider()
+        request_iterable = spider.start_requests()
+
+        ar = autoresponse.Autoresponder(
+	         url2filename=url2filename,
+                 url2errors={})
+
         items = ar.respond_recursively(request_iterable)
 
 	self.assertEqual(expected, items)
 
-Part VI. Wacky tricks
-=====================
+========
+Part VI.
+========
 
-A setting for everything
-========================
-
-* settings.USER_AGENT
-
-* settings.CONCURRENT_REQUESTS_PER_DOMAIN (= e.g. 1)
-
-* settings.CONCURRENT_REQUEST (= e.g. 800)
-
-* settings.RETRY_ENABLED (= True by default)
-
-* settings.RETRY_TIMES
-
-* settings.RETRY_HTTP_CODES
-
-* Great intro-to-scraping docs
+JavaScript
 
 JavaScript
 ==========
@@ -754,15 +849,15 @@ JavaScript
 .. testcode::
 
     import spidermonkey
+    # to run the JS...
+    r = spidermonkey.Runtime()
+    ctx = r.new_context()
+    n = cx.eval_script("1 + 2") + 3
+    # n == 6
 
     def parse(self, response):
        # to get a tag...
        script_content = doc.xpath('//script')[0].text_content()
-       # to run the JS...
-       r = spidermonkey.Runtime()
-       ctx = r.new_context()
-       n = cx.eval_script("1 + 2") + 3
-       # n == 6
 
 
 JavaScript
@@ -788,60 +883,25 @@ JavaScript
             self.browser.open(response.url) # GET by browser
 	    self.browser.select('//ul') # in-browser XPath
 
-Django
-======
+Part VI. Wacky tricks
+=====================
 
-.. testcode::
+A setting for everything
+========================
 
-   from scrapy.contrib.djangoitem import DjangoItem
+* settings.USER_AGENT
 
-Django
-======
+* settings.CONCURRENT_REQUESTS_PER_DOMAIN (= e.g. 1)
 
-.. testcode::
+* settings.CONCURRENT_REQUEST (= e.g. 800)
 
-   from scrapy.contrib.djangoitem import DjangoItem
-   from myapp.models import Poll
+* settings.RETRY_ENABLED (= True by default)
 
-   # in scrapy items.py
-   class PollItem(DjangoItem):
-       django_model = Poll
+* settings.RETRY_TIMES
 
-Django
-======
+* settings.RETRY_HTTP_CODES
 
-.. testcode::
-
-   from scrapy.contrib.djangoitem import DjangoItem
-   from myapp.models import Poll
-
-   # in scrapy items.py
-   class PollItem(DjangoItem):
-       django_model = Poll
-
-   # in scrapy pipelines.py
-   class PollPipeline(object):
-       def process_item(self, item, spider):
-           item.save()
-
-Django
-======
-
-.. testcode::
-
-   from scrapy.contrib.djangoitem import DjangoItem
-   from myapp.models import Poll
-
-   # in scrapy items.py
-   class PollItem(DjangoItem):
-       django_model = Poll
-
-   # in scrapy pipelines.py
-   class PollPipeline(object):
-       def process_item(self, item, spider):
-           item.save()
-
-Or just write a Django management command to deal with the JSON.
+* Great intro-to-scraping docs
 
 Best-case integration
 =====================

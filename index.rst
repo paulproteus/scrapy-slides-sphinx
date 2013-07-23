@@ -860,7 +860,7 @@ More testing
 .. testcode::
 
     def test_spider(self):
-        url2filename = {'http://example.com/':
+        url2filename = {
                                'path/to/sample.html'}
 
 	expected_data = [PyConPreso(author=a, preso=b), ...]
@@ -882,22 +882,88 @@ Part VI.
 
 JavaScript
 
+Three approaches
+================
+
+* Re-write the Javascript in Python
+
+* Wrap some of the JS in spidermonkey
+
+* Run it in an actual browser
+
 JavaScript
 ==========
 
 .. testcode::
 
-    import spidermonkey
-    # to run the JS...
-    r = spidermonkey.Runtime()
-    ctx = r.new_context()
-    n = cx.eval_script("1 + 2") + 3
-    # n == 6
+    >>> import spidermonkey
+    >>> r = spidermonkey.Runtime()
+
+JavaScript
+==========
+
+.. testcode::
+
+    >>> import spidermonkey
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+
+JavaScript
+==========
+
+.. testcode::
+
+    >>> import spidermonkey
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+    >>> cx.eval_script("1 + 2")
+    3
+
+JavaScript
+==========
+
+.. testcode::
+
+    >>> js_src = '''function (x) { return 3 + x; }'''
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+    >>> js_fn = cx.exeute(js_src)
+
+JavaScript
+==========
+
+.. testcode::
+
+    >>> js_src = '''function (x) { return 3 + x; }'''
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+    >>> js_fn = ctx.execute(js_src)
+    >>> type(js_fn)
+    <type 'spidermonkey.Function'>
+    >>> js_fn(3)
+    6
+
+JavaScript
+==========
+
+.. testcode::
+
+    >>> js_src = '''function (x) { return 3 + x; }'''
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+    >>> js_fn = ctx.execute(js_src)
+    >>> type(js_fn)
+    <type 'spidermonkey.Function'>
+    >>> js_fn(3)
+    6
+
+Get your source, e.g.
+
+.. testcode::
 
     def parse(self, response):
        # to get a tag...
        script_content = doc.xpath('//script')[0].text_content()
-
 
 JavaScript
 ==========

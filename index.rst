@@ -805,6 +805,12 @@ test:
 	results = list(spidey.parse(canned_response))
         self.assertEqual(expected, items)
 
+...
+===
+
+.. figure:: /_static/scrapy-diagram-1.png
+   :class: fill
+
 More testing
 ============
 

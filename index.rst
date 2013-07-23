@@ -968,15 +968,23 @@ Get your source, e.g.
 JavaScript
 ==========
 
+Also works for non-anonymous functions:
+
 .. testcode::
 
-    import spidermonkey
+    >>> js_src = '''function add_three (x) { return 3 + x; }'''
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+    >>> js_fn = ctx.execute(js_src)("add_three")
+    >>> type(js_fn)
+    <type 'spidermonkey.Function'>
+    >>> js_fn(3)
+    6
 
-    def parse(self, response):
-       script_content = doc.xpath('//script')[0].text_content() # get tag
-       r = spidermonkey.Runtime()
-       ctx = r.new_context()
-       n = cx.eval_script(script_content) # execute script
+JavaScript
+==========
+
+.. testcode::
 
     import selenium
     class MySpider(BaseSpider):

@@ -387,23 +387,6 @@ Better
            out_data.append(item)
        return out_data
 
-Data is complicated
-===================
-
-   >>> p.author
-   'Asheesh Laroia, Jessica McKellar, Dana Bauer, Daniel Choi'
-
-Data is complicated
-===================
-
-   >>> p.author
-   'Asheesh Laroia, Jessica McKellar, Dana Bauer, Daniel Choi'
-
-Scrapy-ify early on.
-
-Maybe you'll need multiple HTTP requests. Maybe you'll just want
-testable code.
-
 scrapy.spider.BaseSpider
 ========================
 
@@ -677,19 +660,69 @@ Part
 
 Testing
 
+
+Data is complicated
+===================
+
+   >>> p.author
+   'Asheesh Laroia, Jessica McKellar, Dana Bauer, Daniel Choi'
+
 Why testing is normally hard
 ============================
 
-First, the obvious -- if you run your tests against the live Internet,
-when a remote site is down, your Jenkins builds fail
 
-Additionally, it's slow to run your test suite
+.. testcode::
+    ERROR: tests.test_thing
 
-The more tests you have, the more it hurts
+    Traceback (most recent call last):
+     ...
+     File "/usr/lib/python2.7/urllib2.py", line 1181, in do_open
+        raise URLError(err)
+    URLError: <urlopen error [Errno -2] Name or service not known>
 
-https://github.com/pculture/vidscraper/commit/93dc686481342744de3348585b3dd036afe212e8 -- you have to update your sample data when the remote site changes
+    Ran 1 test in 0.153s
 
-@mock.patch sucks because if you miss one, it's over
+    FAILED (errors=1)
+
+Why testing is normally hard
+============================
+
+.. testcode::
+    ERROR: tests.test_thing
+
+    Traceback (most recent call last):
+     ...
+     File "/usr/lib/python2.7/urllib2.py", line 1181, in do_open
+        raise URLError(err)
+    URLError: <urlopen error [Errno 110] Connection timed out>
+
+    Ran 1 test in 127.255s
+
+    FAILED (errors=1)
+
+Why testing is normally hard
+============================
+
+.. testcode::
+    ERROR: tests.test_thing
+
+    Traceback (most recent call last):
+     ...
+     File "/usr/lib/python2.7/urllib2.py", line 1181, in do_open
+        raise URLError(err)
+    URLError: <urlopen error [Errno 110] Connection timed out>
+
+    Ran 1 test in 127.255s
+
+    FAILED (errors=1)
+
+mock.patch()?
+
+Why testing is normally hard
+============================
+
+.. figure:: /_static/sad-commit.png
+   :class: fill
 
 Part V. Testing
 ===============

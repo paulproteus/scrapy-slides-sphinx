@@ -986,7 +986,7 @@ JavaScript
     >>> js_src = '''function (x) { return 3 + x; }'''
     >>> r = spidermonkey.Runtime()
     >>> ctx = r.new_context()
-    >>> js_fn = cx.exeute(js_src)
+    >>> js_fn = cx.execute(js_src)
 
 JavaScript
 ==========

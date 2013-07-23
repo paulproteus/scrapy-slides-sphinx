@@ -20,8 +20,96 @@ Part 0. My history with scraping
 
 * 2012: oh-bugimporters rewrite w/ Scrapy
 
-Part I. Scraping is easy
-========================
+======
+Part I: Scraping without scrapy
+======
+
+Web pages
+=========
+
+.. figure: /_static/rendered.png
+   :class: fill
+
+HTML source
+===========
+
+.. figure: /_static/view-source.png
+   :class: fill
+
+As diagram
+==========
+
+.. figure:: /_static/html-structure.gif
+   :class: fill
+
+DOM inspector
+=============
+
+.. figure: /_static/inspector.png
+   :class: fill
+
+Scraping in Python (2004)
+=========================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+
+Scraping in Python (2004)
+=========================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+   >>> # parse it
+   >>> soup = BeautifulSoup.BeautifulSoup(page)
+
+Scraping in Python (2004)
+=========================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+   >>> # parse it
+   >>> soup = BeautifulSoup.BeautifulSoup(page)
+   >>> # find element we want
+   >>> matches = soup('div', {'id': 'location_place'})
+
+Scraping in Python (2004)
+=========================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+   >>> # parse it
+   >>> soup = BeautifulSoup.BeautifulSoup(page)
+   >>> # find element we want
+   >>> matches = soup('div', {'id': 'location_place'})
+   >>> # pull out text
+   >>> first = matches[0]
+   >>> r[0].find(text=True)
+   u'July 22-26, 2013'
+
+
+Scraping in Python (2004)
+=========================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+   >>> # parse it
+   >>> soup = BeautifulSoup.BeautifulSoup(page)
+   >>> # find element we want
+   >>> matches = soup('div', {'id': 'location_place'})
+   >>> # pull out text
+   >>> first = matches[0]
+   >>> r[0].find(text=True)
+   u'July 22-26, 2013'
 
 * **Download** with urllib2, or requests, or mechanize, or ...
 

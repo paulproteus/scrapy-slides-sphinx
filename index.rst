@@ -176,7 +176,7 @@ What could be better
    >>> # store results somehow
    >>> save_results({'conference': 'oscon', 'date_range': date_range})
 
-No clarity about data format.
+No clarity about data format. Code evolves!
 
 =======
 Part II

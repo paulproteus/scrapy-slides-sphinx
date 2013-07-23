@@ -608,7 +608,7 @@ If you're not done, say so
 
    def parse(response):
        # do some work...
-       req = request(new_url)
+       req = scrapy.http.Request(new_url)
        yield req
 
 If you're not done, say so
@@ -618,8 +618,8 @@ If you're not done, say so
 
    def parse(response):
        # do some work...
-       req = request(new_url,
-                     callback=next_page_handler)
+       req = scrapy.http.Request(new_url,
+                                 callback=next_page_handler)
        yield req
 
    def next_page_handler(response):

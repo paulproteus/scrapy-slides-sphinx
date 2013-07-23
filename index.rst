@@ -12,13 +12,40 @@ asheesh@asheesh.org
 Part 0. My history with scraping
 ================================
 
-* 2004: Taught 3-week mini-class on mechanize + BeautifulSoup
+* 2004: Taught 3-week "Learn Python Through Scraping"
+
+Part 0. My history with scraping
+================================
+
+* 2004: Taught 3-week "Learn Python Through Scraping"
+
+* 2009: "Volunteer opportunity finder" within OpenHatch
+
+Part 0. My history with scraping
+================================
+
+* 2004: Taught 3-week "Learn Python Through Scraping"
+
+* 2009: "Volunteer opportunity finder" within OpenHatch
+
+* 2011: vidscraper. multiprocessing? gevent?
+
+Part 0. My history with scraping
+================================
+
+* 2004: Taught 3-week "Learn Python Through Scraping"
 
 * 2009: "Volunteer opportunity finder" within OpenHatch
 
 * 2011: vidscraper. multiprocessing? gevent?
 
 * 2012: oh-bugimporters rewrite w/ Scrapy
+
+(thanks)
+
+* Karen Rustad, for diagrams and image selection
+* Pablo Hoffman, for starting Scrapy
+* Image actual authors: FIXME
 
 ======
 Part I: Scraping without scrapy

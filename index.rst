@@ -111,16 +111,78 @@ Scraping in Python (2004)
    >>> date_range = r[0].find(text=True)
    >>> print date_range
    u'July 22-26, 2013'
-   >>> # store results somewhere
-   >>> save_results(date_range)
+   >>> # store results somehow
+   >>> save_results({'conference': 'oscon', 'date_range': date_range)
 
-* **Download** with urllib2, or requests, or mechanize, or ...
+What could be better
+====================
 
-* **Examine** with browser inspectors
+.. testcode::
 
-* **Parse** pages with lxml/BeautifulSoup
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
 
-* **Select** with XPath or CSS selectors
+This bloc
+
+What could be better
+====================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+
+This blocks until the remote site responds.
+
+What could be better
+====================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+
+This blocks until the remote site responds.
+
+Must test online.
+
+If this fails, the app crashes.
+
+What could be better
+====================
+
+.. testcode::
+
+   >>> # pull out text
+   >>> first = matches[0]
+
+If this fails, the app crashes.
+
+What could be better
+====================
+
+.. testcode::
+
+   >>> # find element we want
+   >>> matches = soup('div', {'id': 'location_place'})
+
+That's just a CSS selector!
+
+What could be better
+====================
+
+.. testcode::
+
+   >>> # store results somehow
+   >>> save_results({'conference': 'oscon', 'date_range': date_range})
+
+No clarity about data format.
+
+=======
+Part II
+=======
+
+Importing Scrapy components for sanity
 
 Part II. Rewriting some non-scrapy code
 ================

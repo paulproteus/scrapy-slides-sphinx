@@ -817,8 +817,8 @@ More testing
 .. testcode::
 
     def test_spider(self):
-        url2filename = {'http://example.com/':
-                               'path/to/sample.html'}
+        url2filename = {'https://us.pycon.org/2013/schedule/':
+                               'localcopy.html'}
 
 	expected_data = [PyConPreso(author=a, preso=b), ...]
 
@@ -829,8 +829,8 @@ More testing
 .. testcode::
 
     def test_spider(self):
-        url2filename = {'http://example.com/':
-                               'path/to/sample.html'}
+        url2filename = {'https://us.pycon.org/2013/schedule/':
+                               'localcopy.html'}
 
 	expected_data = [PyConPreso(author=a, preso=b), ...]
 
@@ -843,8 +843,8 @@ More testing
 .. testcode::
 
     def test_spider(self):
-        url2filename = {'http://example.com/':
-                               'path/to/sample.html'}
+        url2filename = {'https://us.pycon.org/2013/schedule/':
+                               'localcopy.html'}
 
 	expected_data = [PyConPreso(author=a, preso=b), ...]
 
@@ -860,8 +860,8 @@ More testing
 .. testcode::
 
     def test_spider(self):
-        url2filename = {
-                               'path/to/sample.html'}
+        url2filename = {'https://us.pycon.org/2013/schedule/':
+                               'localcopy.html'}
 
 	expected_data = [PyConPreso(author=a, preso=b), ...]
 

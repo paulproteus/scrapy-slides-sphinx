@@ -104,6 +104,6 @@ article#danger h2 {
 }
 
 /* HAX */
-#id11 h2 , #id12 h2{
+.level-2 h2{
     display: none;
 }

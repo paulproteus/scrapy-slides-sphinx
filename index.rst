@@ -210,15 +210,16 @@ Task: Get a list of speakers
    import requests
    import lxml.html
 
-   data = requests.get(SCHED_PAGE)
-   parsed = lxml.html.fromstring(data.content)
-   print [x.text_content()
-          for x in parsed.cssselect('span.speaker')]
+   def main():
+       data = requests.get(SCHED_PAGE)
+       parsed = lxml.html.fromstring(data.content)
+       for speaker in parsed.cssselect('span.speaker'):
+           print speaker.text_content()
 
 Part II. Rewriting some non-scrapy code
 ================
 
-Task: **Get a list of speakers and talk titles**
+Why: **Separate handling from retrieving**
 
 .. testcode::
 
@@ -227,55 +228,103 @@ Task: **Get a list of speakers and talk titles**
    import requests
    import lxml.html
 
-   data = requests.get(SCHED_PAGE)
-   parsed = lxml.html.fromstring(data.content)
-   print [x.text_content()
-          for x in parsed.cssselect('span.speaker')]
+   def main():
+       data = requests.get(SCHED_PAGE)
+       parsed = lxml.html.fromstring(data.content)
+       for speaker in parsed.cssselect('span.speaker'):
+           print speaker.text_content()
+       #   ↑
 
-Now capture preso titles
-======================================
+Part II. Rewriting some non-scrapy code
+================
 
-You **could**
-
-.. testcode::
-
-   def store_datum(author, preso_title):
-       pass # actual logic here...
-
-Now capture preso titles
-========================
+Why: **Separate handling from retrieving**
 
 .. testcode::
 
-   def store_datum(author, preso_title):
-       pass # actual logic here...
+   SCHED_PAGE='https://us.pycon.org/2013/schedule/'
+
+   import requests
+   import lxml.html
 
    def main():
        data = requests.get(SCHED_PAGE)
-       parsed = lxml.html.fromstring(data.response)
-       for speaker_span in parsed.cssselect('span.speaker'):
-           text = speaker_span.text_content()
-           store_datum(author, preso_title)
+       parsed = lxml.html.fromstring(data.content)
+       for speaker in parsed.cssselect('span.speaker'):
+           print speaker.text_content()
+       #   ↑
 
+``UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 0: ordinal not in range(128)``
 
-Now capture preso titles
-========================
+Part II. Rewriting some non-scrapy code
+================
+
+How: **Separate handling from retrieving**
 
 .. testcode::
 
-   def store_datum(author, preso_title):
-       pass # actual logic here...
+   SCHED_PAGE='https://us.pycon.org/2013/schedule/'
 
-   def main():
+   import requests
+   import lxml.html
+
+   def get_data():
        data = requests.get(SCHED_PAGE)
-       parsed = lxml.html.fromstring(data.response)
-       for speaker_span in parsed.cssselect('span.speaker'):
-           text = speaker_span.text_content()
-           store_datum(author, preso_title)
+       parsed = lxml.html.fromstring(data.content)
+       data = []
+       for speaker in parsed.cssselect('span.speaker'):
+            data.append(speaker.text_content())
+       return data
 
 
-.. figure:: /_static/failure3.jpg
-   :class: fill
+Part II. Rewriting some non-scrapy code
+================
+
+Why: **Clarify the fields you are retrieving**
+
+.. testcode::
+
+   SCHED_PAGE='https://us.pycon.org/2013/schedule/'
+
+   import requests
+   import lxml.html
+
+   def get_data():
+       data = requests.get(SCHED_PAGE)
+       parsed = lxml.html.fromstring(data.content)
+       data = []
+       for speaker in parsed.cssselect('span.speaker'):
+            datum = {}
+            datum['speaker_name'] = speaker.text_content()
+	    datum['preso_title'] = None # FIXME
+       return data
+
+Part II. Rewriting some non-scrapy code
+================
+
+Why: **Clarify the fields you are retrieving**
+
+.. testcode::
+
+   SCHED_PAGE='https://us.pycon.org/2013/schedule/'
+
+   import requests
+   import lxml.html
+
+   def get_data():
+       data = requests.get(SCHED_PAGE)
+       parsed = lxml.html.fromstring(data.content)
+       data = []
+       for speaker in parsed.cssselect('span.speaker'):
+            datum = {}
+            datum['speaker_name'] = speaker.text_content()
+	    datum['preso_title'] = None # FIXME
+       return data # ↑
+
+   def handle_datum(datum):
+       print datum['title'], 'by', datum['speaker_name']
+   #                ↑
+
 
 scrapy.items.Item
 =================
@@ -318,8 +367,8 @@ scrapy.items.Item
 
 ::
 
-   >>> p['preso_name'] = 'Asheesh'
-   KeyError: 'PyConPreso does not support field: preso_name'
+   >>> p['title'] = 'Asheesh'
+   KeyError: 'PyConPreso does not support field: title'
 
 
 Better
@@ -327,17 +376,14 @@ Better
 
 .. testcode::
 
-   def store_datum(author, preso_title):
-       pass # actual logic here...
-
    def get_data():
        # ...
-       for speaker_span in parsed.cssselect('span.speaker'):
-           preso = None # FIXME
-           text = speaker_span.text_content()
+       for speaker in parsed.cssselect('span.speaker'):
+           author = None # ...
+	   preso_title = None # ...
 	   item = PyConPreso(
-               author=text.strip(),
-	       preso=store_datum(author, preso_title))
+               author=author,
+	       preso=preso_title,
            out_data.append(item)
        return out_data
 

@@ -91,9 +91,9 @@ Scraping in Python (2004)
    >>> matches = soup('div', {'id': 'location_place'})
    >>> # pull out text
    >>> first = matches[0]
-   >>> r[0].find(text=True)
+   >>> date_range = r[0].find(text=True)
+   >>> print date_range
    u'July 22-26, 2013'
-
 
 Scraping in Python (2004)
 =========================
@@ -108,8 +108,11 @@ Scraping in Python (2004)
    >>> matches = soup('div', {'id': 'location_place'})
    >>> # pull out text
    >>> first = matches[0]
-   >>> r[0].find(text=True)
+   >>> date_range = r[0].find(text=True)
+   >>> print date_range
    u'July 22-26, 2013'
+   >>> # store results somewhere
+   >>> save_results(date_range)
 
 * **Download** with urllib2, or requests, or mechanize, or ...
 

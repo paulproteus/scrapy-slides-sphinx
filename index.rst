@@ -2,8 +2,10 @@
    :theme: single-level
 
 =======================
-Scrapy: it GETs the Web
+Scrape the web
 =======================
+
+speedily, reliably, and simply with scrapy
 
 Asheesh Laroia
 
@@ -39,7 +41,19 @@ Part 0. My history with scraping
 
 * 2011: vidscraper. multiprocessing? gevent?
 
-* 2012: oh-bugimporters rewrite w/ Scrapy
+* 2012: "Volunteer opportunity finder" (aka oh-bugimporters) rewrite w/ Scrapy
+
+
+Part 0. My history with scraping
+================================
+
+* 2004: Taught 3-week "Learn Python Through Scraping"
+
+* 2009: "Volunteer opportunity finder" within OpenHatch
+
+* 2011: vidscraper. multiprocessing? gevent?
+
+* 2012: "Volunteer opportunity finder" (aka oh-bugimporters) rewrite w/ Scrapy
 
 (thanks)
 
@@ -54,13 +68,13 @@ Part I: Scraping without scrapy
 Web pages
 =========
 
-.. figure: /_static/rendered.png
+.. figure:: /_static/rendered.png
    :class: fill
 
 HTML source
 ===========
 
-.. figure: /_static/view-source.png
+.. figure:: /_static/view-source.png
    :class: fill
 
 As diagram
@@ -72,7 +86,7 @@ As diagram
 DOM inspector
 =============
 
-.. figure: /_static/inspector.png
+.. figure:: /_static/inspector.png
    :class: fill
 
 Scraping in Python (2004)
@@ -83,6 +97,8 @@ Scraping in Python (2004)
    >>> # get a web page
    >>> page = urllib2.urlopen('http://oscon.com/').read()
 
+.. figure:: /_static/view-source.png
+
 Scraping in Python (2004)
 =========================
 
@@ -92,6 +108,8 @@ Scraping in Python (2004)
    >>> page = urllib2.urlopen('http://oscon.com/').read()
    >>> # parse it
    >>> soup = BeautifulSoup.BeautifulSoup(page)
+
+.. figure:: /_static/html-structure.gif
 
 Scraping in Python (2004)
 =========================
@@ -104,6 +122,8 @@ Scraping in Python (2004)
    >>> soup = BeautifulSoup.BeautifulSoup(page)
    >>> # find element we want
    >>> matches = soup('div', {'id': 'location_place'})
+
+.. figure:: /_static/inspector.png
 
 Scraping in Python (2004)
 =========================
@@ -160,6 +180,18 @@ What could be better
    >>> page = urllib2.urlopen('http://oscon.com/').read()
 
 This blocks until the remote site responds.
+
+What could be better
+====================
+
+.. testcode::
+
+   >>> # get a web page
+   >>> page = urllib2.urlopen('http://oscon.com/').read()
+
+This blocks until the remote site responds.
+
+Must test online.
 
 What could be better
 ====================

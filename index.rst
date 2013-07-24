@@ -657,7 +657,8 @@ Awesome features...
 
 Semi-complex integration with other pieces of code.
 
-Part IV. Async
+==============
+Section: Async
 ==============
 
 .. figure:: /_static/asink.jpg

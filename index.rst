@@ -244,6 +244,18 @@ Task: Get a list of speakers
 
    SCHED_PAGE='https://us.pycon.org/2013/schedule/'
 
+A word about CSS selectors
+==========================
+
+.. testcode::
+
+CSS and XPath
+
+    >>> import cssselect
+    >>> cssselect.HTMLTranslator().css_to_xpath('span.speaker')
+    u"descendant-or-self::span[@class and contains(concat(' ', normalize-space(@class), ' '), ' speaker ')]"
+
+
 Rewriting some non-scrapy code
 ================
 

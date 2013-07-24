@@ -1127,7 +1127,7 @@ Also works for non-anonymous functions:
 
 .. testcode::
 
-    >>> js_src = '''function add_three (x) { return 3 + x; }'''
+    >>> js_src = '''function add_three(x) { return 3 + x; }'''
     >>> r = spidermonkey.Runtime()
     >>> ctx = r.new_context()
     >>> js_fn = ctx.execute(js_src)("add_three")
@@ -1162,9 +1162,6 @@ JavaScript
 	def parse(self, response):
             self.browser.open(response.url) # GET by browser
 	    self.browser.select('//ul') # in-browser XPath
-
-Further configuration
-=====================
 
 A setting for everything
 ========================

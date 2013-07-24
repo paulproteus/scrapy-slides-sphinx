@@ -607,12 +607,16 @@ Awesome features
 Awesome features...
 ===================
 
-    telnet localhost 6023
+    $ scrapy runspider your_spider.py &
+
+    $ telnet localhost 6023
 
 Awesome features...
 ===================
 
-    telnet localhost 6023
+    $ scrapy runspider your_spider.py &
+
+    $ telnet localhost 6023
 
 Gives
 
@@ -626,7 +630,9 @@ Gives
 Awesome features...
 ===================
 
-    telnet localhost 6023
+    $ scrapy runspider your_spider.py &
+
+    $ telnet localhost 6023
 
 Gives
 

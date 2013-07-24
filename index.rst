@@ -11,19 +11,19 @@ Asheesh Laroia
 
 asheesh@asheesh.org
 
-Part 0. My history with scraping
+My history with scraping
 ================================
 
 * 2004: Taught 3-week "Learn Python Through Scraping"
 
-Part 0. My history with scraping
+My history with scraping
 ================================
 
 * 2004: Taught 3-week "Learn Python Through Scraping"
 
 * 2009: "Volunteer opportunity finder" within OpenHatch
 
-Part 0. My history with scraping
+My history with scraping
 ================================
 
 * 2004: Taught 3-week "Learn Python Through Scraping"
@@ -32,7 +32,7 @@ Part 0. My history with scraping
 
 * 2011: vidscraper. multiprocessing? gevent?
 
-Part 0. My history with scraping
+My history with scraping
 ================================
 
 * 2004: Taught 3-week "Learn Python Through Scraping"
@@ -44,7 +44,7 @@ Part 0. My history with scraping
 * 2012: "Volunteer opportunity finder" (aka oh-bugimporters) rewrite w/ Scrapy
 
 
-Part 0. My history with scraping
+My history with scraping
 ================================
 
 * 2004: Taught 3-week "Learn Python Through Scraping"
@@ -62,7 +62,7 @@ Part 0. My history with scraping
 * Image actual authors: FIXME
 
 ======
-Part I: Scraping without scrapy
+Section: Scraping without scrapy
 ======
 
 Web pages
@@ -237,18 +237,16 @@ What could be better
 
 No clarity about data format. Code evolves!
 
-=======
-Part II
-=======
+======================================
+Section: Importing Scrapy components for sanity
+======================================
 
-Importing Scrapy components for sanity
-
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Task: Get a list of speakers
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Task: Get a list of speakers
@@ -257,7 +255,7 @@ Task: Get a list of speakers
 
    SCHED_PAGE='https://us.pycon.org/2013/schedule/'
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Task: Get a list of speakers
@@ -275,7 +273,7 @@ Task: Get a list of speakers
        for speaker in parsed.cssselect('span.speaker'):
            print speaker.text_content()
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Why: **Separate handling from retrieving**
@@ -294,7 +292,7 @@ Why: **Separate handling from retrieving**
            print speaker.text_content()
        #   ↑
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Why: **Separate handling from retrieving**
@@ -315,7 +313,7 @@ Why: **Separate handling from retrieving**
 
 ``UnicodeEncodeError: 'ascii' codec can't encode character u'\xe9' in position 0: ordinal not in range(128)``
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 How: **Separate handling from retrieving**
@@ -336,7 +334,7 @@ How: **Separate handling from retrieving**
        return data
 
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Why: **Clarify the fields you are retrieving**
@@ -358,7 +356,7 @@ Why: **Clarify the fields you are retrieving**
 	    datum['preso_title'] = None # FIXME
        return data
 
-Part II. Rewriting some non-scrapy code
+Rewriting some non-scrapy code
 ================
 
 Why: **Clarify the fields you are retrieving**
@@ -530,7 +528,8 @@ Customizing output
 .. figure:: /_static/scrapy-diagram-2.png
    :class: fill
 
-Part III. An aside about Scrapy
+===============================
+Section: Pros and Cons of Scrapy
 ===============================
 
    >>> 'Pablo Hoffman' > 'Asheesh Laroia'
@@ -714,10 +713,8 @@ Performance
  * 1 hour 10 min
 
 ====
-Part
+Section: Testing
 ====
-
-Testing
 
 
 Data is complicated
@@ -936,10 +933,20 @@ More testing
 	self.assertEqual(expected, items)
 
 ========
-Part VI.
+Section: Javascript
 ========
 
-JavaScript
+Three approaches
+================
+
+* Re-write the Javascript in Python
+
+Three approaches
+================
+
+* Re-write the Javascript in Python
+
+* Wrap some of the JS in spidermonkey
 
 Three approaches
 ================

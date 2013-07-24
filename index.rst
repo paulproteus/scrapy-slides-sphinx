@@ -1208,7 +1208,7 @@ JavaScript
             self.browser.open(response.url) # GET by browser
 	    self.browser.select('//ul') # in-browser XPath
 
-Also look for: phantompy, ghost.py, headless webkit
+Also look for: phantompy, ghost.py, zombie, headless webkit
 
 =======
 Section: API clients

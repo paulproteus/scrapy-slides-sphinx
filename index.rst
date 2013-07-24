@@ -255,6 +255,8 @@ CSS and XPath
     >>> cssselect.HTMLTranslator().css_to_xpath('span.speaker')
     u"descendant-or-self::span[@class and contains(concat(' ', normalize-space(@class), ' '), ' speaker ')]"
 
+https://github.com/scrapy/scrapy/pull/176
+
 
 Rewriting some non-scrapy code
 ================

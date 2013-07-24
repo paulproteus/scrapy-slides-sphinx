@@ -726,7 +726,6 @@ Relevant snippet:
     'http://example.com/newpath'
     >>> urlparse.urljoin('http://example.com/my/site', 'subpath')
     'http://example.com/my/subpath'
-
 If you're not done, say so
 ==========================
 
@@ -1201,6 +1200,85 @@ JavaScript
 	def parse(self, response):
             self.browser.open(response.url) # GET by browser
 	    self.browser.select('//ul') # in-browser XPath
+
+=======
+Section: API clients
+=======
+
+Basic non-HTML use
+====
+
+.. testcode::
+
+    class WikiImageSpider(BaseSpider):
+        START_URLS = ['http://en.wikipedia.org/w/api.php?action=query&titles=San_Francisco&prop=images&imlimit=20&format=json']
+
+        def parse(self, response):
+            results = json.loads(response.body_as_unicode)
+            for image in results['query']['pages']['images']:
+                 item = WikipediaImage(_) # ...
+                 yield WikipediaImage
+
+Basic non-HTML use
+====
+
+.. testcode::
+
+    class WikiImageSpider(BaseSpider):
+        START_URLS = ['http://en.wikipedia.org/w/api.php?action=query&titles=San_Francisco&prop=images&imlimit=20&format=json']
+
+        def parse(self, response):
+            results = json.loads(response.body_as_unicode)
+            for image in results['query']['pages']['images']:
+                 item = WikipediaImage(_) # ...
+                 yield WikipediaImage
+            if results['query-continue']['images']:
+                new_url = response.url + _ # ...
+	        yield scrapy.http.Request(new_url, callback=self.parse)
+
+Basic non-HTML use
+====
+
+.. testcode::
+
+    class WikiImageSpider(BaseSpider):
+        START_URLS = ['http://en.wikipedia.org/w/api.php?action=query&titles=San_Francisco&prop=images&imlimit=20&format=json']
+
+        def parse(self, response):
+            results = json.loads(response.body_as_unicode)
+            for image in results['query']['pages']['images']:
+                 item = WikipediaImage(_) # ...
+                 yield WikipediaImage
+            if results['query-continue']['images']:
+                new_url = response.url + _ # ...
+	        yield scrapy.http.Request(new_url, callback=self.parse)
+
+* settings.USER_AGENT = "My Wiki Bot mywikibot@asheesh.org"
+
+* settings.RETRY_HTTP_CODES.append(403)
+
+Basic non-HTML use
+====
+
+.. testcode::
+
+    class WikiImageSpider(BaseSpider):
+        START_URLS = ['http://en.wikipedia.org/w/api.php?action=query&titles=San_Francisco&prop=images&imlimit=20&format=json']
+
+        def parse(self, response):
+            results = json.loads(response.body_as_unicode)
+            for image in results['query']['pages']['images']:
+                 item = WikipediaImage(_) # ...
+                 yield WikipediaImage
+            if results['query-continue']['images']:
+                new_url = response.url + _ # ...
+	        yield scrapy.http.Request(new_url, callback=self.parse)
+
+* settings.USER_AGENT = "My Wiki Bot mywikibot@asheesh.org"
+
+* settings.RETRY_HTTP_CODES.append(403)
+
+* Write a DownloaderMiddleware for custom retry logic
 
 A setting for everything
 ========================

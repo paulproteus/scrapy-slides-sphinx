@@ -577,6 +577,13 @@ Scrapy wants you to make a project
 
   $ scrapy startproject tutorial
 
+Scrapy wants you to make a project
+==================================
+
+::
+
+  $ scrapy startproject tutorial
+
 creates
 
 ::

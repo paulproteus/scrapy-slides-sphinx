@@ -657,7 +657,6 @@ Awesome features...
 
 Semi-complex integration with other pieces of code.
 
-==============
 Section: Async
 ==============
 

@@ -145,3 +145,7 @@ article#danger h2 {
   -moz-transform: translate(2040px);
   -webkit-transform: translate3d(2040px, 0, 0); */
 }
+
+.slides > article {
+    color: rgb(51, 51, 51);
+}

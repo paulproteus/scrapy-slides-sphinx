@@ -716,6 +716,29 @@ If you're not done, say so
 	   # need more data!
 	   # ...
            request = scrapy.http.Request(other_url)
+
+Relevant snippet:
+
+.. testcode::
+
+    >>> import urlparse
+    >>> urlparse.urljoin('http://example.com/my/site', '/newpath')
+    'http://example.com/newpath'
+    >>> urlparse.urljoin('http://example.com/my/site', 'subpath')
+    'http://example.com/my/subpath'
+
+If you're not done, say so
+==========================
+
+.. testcode::
+
+   def parse(self, response):
+       # ...
+       for speaker in speakers:
+           partial_item = PyConPreso(author=author)
+	   # need more data!
+	   # ...
+           request = scrapy.http.Request(other_url)
 	   request.meta['partial_item'] = partial_item
            yield request
 

@@ -1067,8 +1067,8 @@ JavaScript
     >>> import spidermonkey
     >>> r = spidermonkey.Runtime()
     >>> ctx = r.new_context()
-    >>> cx.eval_script("1 + 2")
-    3
+    >>> ctx.execute("{} + []")
+    0
 
 JavaScript
 ==========
@@ -1078,19 +1078,23 @@ JavaScript
     >>> js_src = '''function (x) { return 3 + x; }'''
     >>> r = spidermonkey.Runtime()
     >>> ctx = r.new_context()
+    >>> ctx.execute("{} + []")
+    0
     >>> js_fn = cx.execute(js_src)
-
-JavaScript
-==========
-
-.. testcode::
-
-    >>> js_src = '''function (x) { return 3 + x; }'''
-    >>> r = spidermonkey.Runtime()
-    >>> ctx = r.new_context()
-    >>> js_fn = ctx.execute(js_src)
     >>> type(js_fn)
     <type 'spidermonkey.Function'>
+
+JavaScript
+==========
+
+.. testcode::
+
+    >>> js_src = '''function (x) { return 3 + x; }'''
+    >>> r = spidermonkey.Runtime()
+    >>> ctx = r.new_context()
+    >>> ctx.execute("{} + []")
+    0
+    >>> js_fn = ctx.execute(js_src)
     >>> js_fn(3)
     6
 
@@ -1184,7 +1188,7 @@ Best-case integration
 
 * Leave your HTTP to Scrapy.
 
-* Impatient? Item Pipeline.
+* Impatient? Steal data from item pipeline.
 
 * Patient? Feed Exporter.
 

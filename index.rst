@@ -668,50 +668,86 @@ If you're not done, say so
 
 .. testcode::
 
-   def parse(response):
-       # do some work...
+   def parse(self, response):
+       # ...
+       for speaker in speakers:
+           partial_item = PyConPreso(author=author)
+	   # need more data!
+
 
 If you're not done, say so
 ==========================
 
 .. testcode::
 
-   def parse(response):
-       # do some work...
-       req = scrapy.http.Request(new_url)
-       yield req
+   def parse(self, response):
+       # ...
+       for speaker in speakers:
+           partial_item = PyConPreso(author=author)
+	   # need more data!
+	   # ...
+           request = scrapy.http.Request(other_url)
 
 If you're not done, say so
 ==========================
 
 .. testcode::
 
-   def parse(response):
-       # do some work...
-       req = scrapy.http.Request(new_url,
-                                 callback=next_page_handler)
-       yield req
-
-   def next_page_handler(response):
-       # do some work...
-       yield Item()
+   def parse(self, response):
+       # ...
+       for speaker in speakers:
+           partial_item = PyConPreso(author=author)
+	   # need more data!
+	   # ...
+           request = scrapy.http.Request(other_url)
+	   request.meta['partial_item'] = partial_item
+           yield request
 
 If you're not done, say so
 ==========================
 
 .. testcode::
 
-   def parse(response):
-       # do some work...
-       req = Request(new_url,
-                     callback=next_page_handler)
-       req.meta['data'] = 'to keep around'
-       yield req
+   def parse(self, response):
+       # ...
+       for speaker in speakers:
+           partial_item = PyConPreso(author=author)
+	   # need more data!
+	   # ...
+           request = scrapy.http.Request(other_url,
+                               callback=extract_next_part)
+	   request.meta['partial_item'] = partial_item
+           yield request
 
-   def next_page_handler(response):
-       data = response.meta['data'] # pull data out
+   def extract_next_part(response):
+       partial_item = response.meta['partial_item']
        # do some work...
-       yield Item()
+       partial_item['preso'] = _
+       yield partial_item # now not partial!
+
+If you're not done, say so
+==========================
+
+.. testcode::
+
+   def parse(self, response):
+       # ...
+       for speaker in speakers:
+           partial_item = PyConPreso(author=author)
+	   # need more data!
+	   # ...
+           request = scrapy.http.Request(other_url,
+                               callback=extract_next_part)
+	   request.meta['partial_item'] = partial_item
+           yield request
+
+   def extract_next_part(response):
+       partial_item = response.meta['partial_item']
+       # do some work...
+       partial_item['preso'] = _
+       yield partial_item # now not partial!
+
+Rule: Split the function if you need a new HTTP request.
 
 Performance
 ===========

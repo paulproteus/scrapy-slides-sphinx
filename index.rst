@@ -136,23 +136,12 @@ Scraping in Python (2004)
    >>> soup = BeautifulSoup.BeautifulSoup(page)
    >>> # find element we want
    >>> matches = soup('div', {'id': 'location_place'})
-   >>> # pull out text
-   >>> first = matches[0]
-   >>> date_range = r[0].find(text=True)
-   >>> print date_range
-   u'July 22-26, 2013'
 
-Scraping in Python (2004)
-=========================
+Finish extraction and save:
+
 
 .. testcode::
 
-   >>> # get a web page
-   >>> page = urllib2.urlopen('http://oscon.com/').read()
-   >>> # parse it
-   >>> soup = BeautifulSoup.BeautifulSoup(page)
-   >>> # find element we want
-   >>> matches = soup('div', {'id': 'location_place'})
    >>> # pull out text
    >>> first = matches[0]
    >>> date_range = r[0].find(text=True)

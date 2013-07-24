@@ -1202,5 +1202,4 @@ Separate requesting and responding
 .. figure:: /_static/take-away.jpg
    :class: fill
 
-Asheesh Laroia
-
+Asheesh Laroia asheesh.org

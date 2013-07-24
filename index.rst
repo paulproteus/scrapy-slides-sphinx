@@ -1132,6 +1132,18 @@ Also works for non-anonymous functions:
     >>> js_fn(3)
     6
 
+Hash cash
+=========
+
+.. figure:: /_static/hash-cash.png
+   :class: fill
+
+Hash cash
+=========
+
+.. figure:: /_static/hash-cash-2.png
+   :class: fill
+
 JavaScript
 ==========
 

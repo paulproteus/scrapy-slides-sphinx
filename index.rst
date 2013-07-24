@@ -1208,6 +1208,8 @@ JavaScript
             self.browser.open(response.url) # GET by browser
 	    self.browser.select('//ul') # in-browser XPath
 
+Also look for: phantompy
+
 =======
 Section: API clients
 =======

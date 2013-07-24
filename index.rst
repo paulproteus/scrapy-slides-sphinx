@@ -354,7 +354,7 @@ Why: **Clarify the fields you are retrieving**
        for speaker in parsed.cssselect('span.speaker'):
             datum = {}
             datum['speaker_name'] = speaker.text_content()
-	    datum['preso_title'] = None # FIXME
+	    datum['preso_title'] = _ # FIXME
        return data
 
 Rewriting some non-scrapy code
@@ -376,7 +376,7 @@ Why: **Clarify the fields you are retrieving**
        for speaker in parsed.cssselect('span.speaker'):
             datum = {}
             datum['speaker_name'] = speaker.text_content()
-	    datum['preso_title'] = None # FIXME
+	    datum['preso_title'] = _ # FIXME
        return data # ↑
 
    def handle_datum(datum):
@@ -405,8 +405,8 @@ scrapy.items.Item
 .. testcode::
 
     # Similar to...
-    {'author': None,
-     'preso':  None}
+    {'author': _,
+     'preso':  _}
 
 scrapy.items.Item
 =================
@@ -420,8 +420,8 @@ scrapy.items.Item
 .. testcode::
 
     # Similar to...
-    {'author': None,
-     'preso':  None}
+    {'author': _,
+     'preso':  _}
 
 ::
 
@@ -439,8 +439,8 @@ Better
        parsed = lxml.html.fromstring(data.content)
        data = []
        for speaker in parsed.cssselect('span.speaker'):
-           author = None # ...
-	   preso_title = None # ...
+           author = _ # ...
+	   preso_title = _ # ...
 	   item = PyConPreso(
                author=author,
 	       preso=preso_title,
@@ -464,8 +464,8 @@ scrapy.spider.BaseSpider
             slots = parsed.cssselect('span.speaker')
 	    results = []
             for speaker in speakers:
-                author = None # placeholder
-                preso = None  # placeholder
+                author = _ # placeholder
+                preso = _  # placeholder
                 results.append(PyConPreso(
 		        author=author, preso=preso))
             return results
@@ -486,8 +486,8 @@ scrapy.spider.BaseSpider
                               response.body_as_unicode)
             slots = parsed.cssselect('span.speaker')
             for speaker in speakers:
-                author = None # placeholder
-                preso = None  # placeholder
+                author = _ # placeholder
+                preso = _  # placeholder
                 yield PyConPreso(
 		        author=author, preso=preso)
 

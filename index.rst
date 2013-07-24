@@ -992,6 +992,9 @@ More testing
         ar = autoresponse.Autoresponder(
 	         url2filename=url2filename,
                  url2errors={})
+
+        items = ar.respond_recursively(request_iterable)
+
 More testing
 ============
 

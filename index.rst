@@ -447,7 +447,7 @@ Better
 	   preso_title = _ # ...
 	   item = PyConPreso(
                author=author,
-	       preso=preso_title,
+	       preso=preso_title)
            out_data.append(item)
        return out_data
 

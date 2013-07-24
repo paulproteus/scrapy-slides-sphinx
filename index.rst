@@ -249,9 +249,9 @@ Task: Get a list of speakers
 A word about CSS selectors
 ==========================
 
-.. testcode::
-
 CSS and XPath
+
+.. testcode::
 
     >>> import cssselect
     >>> cssselect.HTMLTranslator().css_to_xpath('span.speaker')

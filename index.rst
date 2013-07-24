@@ -1159,7 +1159,7 @@ JavaScript
             self.browser.open(response.url) # GET by browser
 	    self.browser.select('//ul') # in-browser XPath
 
-Part VI. Wacky tricks
+Further configuration
 =====================
 
 A setting for everything

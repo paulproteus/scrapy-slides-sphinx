@@ -59,7 +59,9 @@ My history with scraping
 
 * Karen Rustad, for diagrams and image selection
 * Pablo Hoffman, for starting Scrapy
-* Image actual authors: FIXME
+* Image actual authors: Eric Wilde, April Killingsworth, Jim Davis, Dan Walsh, Steven Depolo
+* Stephen Burrows for vidscraper
+* Nathan Yergler for slides framework (hieroglyph)
 
 ======
 Section: Scraping without scrapy

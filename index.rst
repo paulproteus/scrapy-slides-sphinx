@@ -914,6 +914,12 @@ Part V. Testing
                 yield PyConPreso(
 		        author=author, preso=preso)
 
+...
+===
+
+.. figure:: /_static/scrapy-diagram-1.png
+   :class: fill
+
 Part V. Testing
 ===============
 
@@ -1320,4 +1326,4 @@ Separate requesting and responding
 .. figure:: /_static/take-away.jpg
    :class: fill
 
-Asheesh Laroia asheesh.org
+Asheesh Laroia scrapy-talk.asheesh.org

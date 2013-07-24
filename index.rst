@@ -647,6 +647,8 @@ Awesome features...
 Awesome features...
 ===================
 
+  $ scrapy runspider your_spider.py -s TELNETCONSOLE_ENABLED=0 -s WEBSERVICE_ENABLED=0
+
 Semi-complex integration with other pieces of code.
 
 Part IV. Async

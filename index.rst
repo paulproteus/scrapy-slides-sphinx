@@ -726,6 +726,7 @@ Relevant snippet:
     'http://example.com/newpath'
     >>> urlparse.urljoin('http://example.com/my/site', 'subpath')
     'http://example.com/my/subpath'
+
 If you're not done, say so
 ==========================
 

@@ -808,6 +808,23 @@ Why testing is normally hard
 Why testing is normally hard
 ============================
 
+
+.. testcode::
+    ERROR: tests.test_thing
+
+    Traceback (most recent call last):
+     ...
+     File "/usr/lib/python2.7/urllib2.py", line 1181, in do_open
+        raise URLError(err)
+    urllib2.HTTPError: HTTP Error 403: Exceeded query limit for API key
+
+    Ran 1 test in 0.153s
+
+    FAILED (errors=1)
+
+Why testing is normally hard
+============================
+
 .. testcode::
     ERROR: tests.test_thing
 

@@ -423,7 +423,9 @@ Better
 .. testcode::
 
    def get_data():
-       # ...
+       data = requests.get(SCHED_PAGE)
+       parsed = lxml.html.fromstring(data.content)
+       data = []
        for speaker in parsed.cssselect('span.speaker'):
            author = None # ...
 	   preso_title = None # ...

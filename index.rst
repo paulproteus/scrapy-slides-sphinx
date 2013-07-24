@@ -450,6 +450,29 @@ scrapy.spider.BaseSpider
             parsed = lxml.html.fromstring(
                               response.body_as_unicode)
             slots = parsed.cssselect('span.speaker')
+	    results = []
+            for speaker in speakers:
+                author = None # placeholder
+                preso = None  # placeholder
+                results.append(PyConPreso(
+		        author=author, preso=preso))
+            return results
+
+scrapy.spider.BaseSpider
+========================
+
+.. testcode::
+
+    import lxml.html
+    START_URL = '...'
+
+    class PyConSiteSpider(BaseSpider):
+        start_urls = [START_URL]
+
+        def parse(self, response):
+            parsed = lxml.html.fromstring(
+                              response.body_as_unicode)
+            slots = parsed.cssselect('span.speaker')
             for speaker in speakers:
                 author = None # placeholder
                 preso = None  # placeholder

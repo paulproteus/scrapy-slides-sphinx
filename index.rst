@@ -159,7 +159,7 @@ Scraping in Python (2004)
    >>> print date_range
    u'July 22-26, 2013'
    >>> # store results somehow
-   >>> save_results({'conference': 'oscon', 'date_range': date_range)
+   >>> save_results({'conference': 'oscon', 'date_range': date_range})
 
 What could be better
 ====================
